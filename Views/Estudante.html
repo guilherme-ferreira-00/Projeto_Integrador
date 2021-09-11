@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Tabela e Formulário Estudante</title>
+        <meta charset="utf-8">
+
+        <link rel="stylesheet" href="./styles/tabela.css">                  <!-- chamada do arquivo .css*/ -->
+        <link rel="stylesheet" href="./styles/formulario.css">
+        <script src="./scripts/jquery-3.6.0.js"></script>
+        <script src="./scripts/formulario_estudante.js"></script>
+        
+    </head>
+
+    <body>
+        <h1>Tabela e Formulário Estudante</h1>
+        <form id="formulario" name="formulario" autocomplete="on" action="http://www.google.com" method="get" target="_blank">
+            <table>
+                <tr>
+                    <td><label>Nome:</label></td>                                                                                               <!-- campo texto -->
+                    <td><input type="text" id="id_nome" name="nome" placeholder="Digite o seu nome" size="25" onchange="remover('id_nome')" required></td>
+                </tr>
+                <tr>
+                    <td><label>Idade:</label></td>
+                    <td><input type="number" id="id_idade" name="idade" placeholder="Digite sua idade" size="25" onchange="remover('id_idade')" required></td>                 <!-- campo numero -->     
+                </tr>
+                <tr>
+                    <td><label>Data de Ingresso:</label></td>
+                    <td><input type="date" id="id_data" name="data" size="25" placeholder="Digite uma data" onchange="remover('id_data')" ></td>                                   <!-- campo data -->
+                </tr>
+                <tr>
+                    <td><label>Curso:</label></td>
+                    <td>
+                        <select id="id_curso" name="curso" onchange="remover('id_curso')" required>
+                            <option value="0">Selecione</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="disciplina"  >Disciplinas:</td>
+                    <td class="disciplina" id="iddisciplina"></td>
+                </tr>
+                <tr>
+                    <td class="radio">Graduado:</td>
+                    <td>
+                        <input type="radio" name="graduado" value="1" ><span class="radio">Sim</span><br>
+                        <input type="radio" name="graduado" value="2" ><span class="radio">Não</span>                                                                              <!-- campo radiobutton -->
+                    </td>
+                </tr>
+            </table>
+        
+        <button onclick="verifica()" class="botao" name="botao" type="button">Salvar</button>                                                           <!-- Botão Salvar -->
+        <br><br>    
+
+        <p>
+            <h1>Estudantes Cadastrados</h1> 
+            <table class="tabela">
+                <thead>
+                    <tr>
+                        <th>NOME</th>
+                        <th>Idade</th>
+                        <th>Data de Ingresso</th>
+                        <th>Curso</th>
+                        <th>Graduado</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                
+                <tbody id="grid">    
+                                 
+                </tbody>
+            </table>
+        </p>
+
+        
+    </body>
+</html>

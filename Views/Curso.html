@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Tabela e Formulário Curso</title>
+        <meta charset="utf-8">
+        <script src="./scripts/jquery-3.6.0.js"></script>
+        <link rel="stylesheet" href="./styles/tabela.css">                              <!-- chamada do arquivo .css*/ -->
+        <link rel="stylesheet" href="./styles/formulario.css">
+        <script src="./scripts/formulario_curso.js"></script>
+    </head>
+
+    <body>
+        <h1>Tabela e Formulário Curso</h1>
+        <form id="formulario" name="formulario" autocomplete="on" action="http://www.google.com" method="get" target="_blank">
+            <table>
+                <tr>
+                    <td><label>Nome:</label></td>
+                    <td><input type="text" id="id_nome" name="nome" placeholder="Digite o seu nome" size="25" onchange="remover('id_nome')" required></td>                <!-- campo nome -->
+                </tr>
+                <tr>
+                    <td><label>Carga Horária:</label></td>
+                    <td><input type="number" id="id_carga" name="carga"  placeholder="Digite sua carga horária" size="25" onchange="remover('id_carga')" required></td>      <!-- campo numero -->
+                </tr>
+                <tr>
+                    <td><label>Área :</label></td>
+                    <td>
+                        <select id="id_area" name="area" onchange="remover('id_area')" required>
+                            <option value="0">Selecione</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="radio">Tipo:</td>
+                    <td>
+                        <input type="radio" name="tipo" value="1" ><sapn class="radio">Presencial diurno</sapn><br>
+                        <input type="radio" name="tipo" value="2" ><span class="radio">Presencial noturno</span><br>                                               <!-- campo radiobutton -->
+                        <input type="radio" name="tipo" value="3" ><span class="radio">Semi-presencial</span><br>
+                        <input type="radio" name="tipo" value="4" ><sapn class="radio">À distância</sapn>
+                    </td>
+                </tr>
+            </table>
+
+        <button onclick="verifica()" class="botao" name="botao" type="button">Salvar</button>                                                                                               <!-- Botão salvar -->
+        <br><br>   
+
+
+
+        <hr>
+
+        <p>
+            <h1>Cursos Cadastrados</h1> 
+            <table class="tabela">
+                <thead>
+                    <tr>
+                        <th>NOME</th>
+                        <th>Carga Horária</th>
+                        <th>Área</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                
+                <tbody id="grid">    
+                                 
+                </tbody>
+            </table>
+        </p>
+
+
+
+
+        
+        
+    </body>
+
+
+
+
+
+    
+</html>
