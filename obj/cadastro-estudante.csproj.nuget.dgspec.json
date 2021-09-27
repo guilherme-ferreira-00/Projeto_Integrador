@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\guilherme.ferreira\\Documents\\Unilavras\\desenvolvimento web III\\trabalho parte 6\\cadastro-estudante\\cadastro-estudante.csproj": {}
+    "C:\\Users\\guilherme.ferreira\\Documents\\Unilavras\\Projeto Integrador 3\\cadastro-estudante\\cadastro-estudante.csproj": {}
   },
   "projects": {
-    "C:\\Users\\guilherme.ferreira\\Documents\\Unilavras\\desenvolvimento web III\\trabalho parte 6\\cadastro-estudante\\cadastro-estudante.csproj": {
+    "C:\\Users\\guilherme.ferreira\\Documents\\Unilavras\\Projeto Integrador 3\\cadastro-estudante\\cadastro-estudante.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\guilherme.ferreira\\Documents\\Unilavras\\desenvolvimento web III\\trabalho parte 6\\cadastro-estudante\\cadastro-estudante.csproj",
+        "projectUniqueName": "C:\\Users\\guilherme.ferreira\\Documents\\Unilavras\\Projeto Integrador 3\\cadastro-estudante\\cadastro-estudante.csproj",
         "projectName": "cadastro-estudante",
-        "projectPath": "C:\\Users\\guilherme.ferreira\\Documents\\Unilavras\\desenvolvimento web III\\trabalho parte 6\\cadastro-estudante\\cadastro-estudante.csproj",
+        "projectPath": "C:\\Users\\guilherme.ferreira\\Documents\\Unilavras\\Projeto Integrador 3\\cadastro-estudante\\cadastro-estudante.csproj",
         "packagesPath": "C:\\Users\\guilherme.ferreira\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\guilherme.ferreira\\Documents\\Unilavras\\desenvolvimento web III\\trabalho parte 6\\cadastro-estudante\\obj\\",
+        "outputPath": "C:\\Users\\guilherme.ferreira\\Documents\\Unilavras\\Projeto Integrador 3\\cadastro-estudante\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\guilherme.ferreira\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -36,9 +36,19 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.1.9, )"
+            },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[3.1.4, )"
+            },
+            "MySql.Data.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.22, )"
             }
           },
           "imports": [
