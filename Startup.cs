@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+using cadastro_estudante.Models;
 
 namespace cadastro_estudante
 {
@@ -26,6 +28,9 @@ namespace cadastro_estudante
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddDbContext<BDContexto>(option =>
+                option.UseMySQL("server=localhost;port=3306;user=root;password=12345678;database=cadastro_estudante")
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
