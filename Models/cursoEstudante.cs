@@ -1,7 +1,18 @@
-public class cursoEstudante
+﻿using System;
+using System.Collections.Generic;
+
+namespace cadastro_estudante.Models
 {
-    public int Id { get; set; }
+    public partial class Cursoestudante
+    {
+        public Cursoestudante()
+        {
+            Estudante = new HashSet<Estudante>();
+        }
 
-    public string Nome { get; set; }
+        public int IdcursoEstudante { get; set; }
+        public string Nome { get; set; }
 
+        public virtual ICollection<Estudante> Estudante { get; set; }
+    }
 }

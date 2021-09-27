@@ -1,6 +1,18 @@
-public class Area
-{
-    public int Id { get; set; }
+﻿using System;
+using System.Collections.Generic;
 
-    public string Nome { get; set; }
+namespace cadastro_estudante.Models
+{
+    public partial class Area
+    {
+        public Area()
+        {
+            Curso = new HashSet<Curso>();
+        }
+
+        public int IdArea { get; set; }
+        public string Nome { get; set; }
+
+        public virtual ICollection<Curso> Curso { get; set; }
+    }
 }
