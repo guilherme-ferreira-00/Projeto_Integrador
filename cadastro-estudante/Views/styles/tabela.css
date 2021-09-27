@@ -1,0 +1,50 @@
+thead {
+    font-family: Courier;
+    font-size: 20px;
+    color: blue;                            /* Parte do cabeçalho */
+    background-color: darkgoldenrod;
+    font-weight: bold;
+    text-align: center;
+}
+
+
+.tabela {
+    font-family: 'Courier New';
+    font-size: 15px;
+    color: darkred;                           /* Tabela */
+    width: 500px;
+    height: 800px;
+    border-width: 15px;
+    border-radius: 15px;
+    
+    
+}
+
+.numero {
+    text-align: center;                          /* Classse Numero */
+}
+
+
+table,td,th {
+    border-style: solid;                         /* Tabela, linha e coluna */
+    border-color: dimgray;
+    
+    
+}
+
+td, th {
+    padding: 10px;
+    border-width: 4px;                            /* linha e coluna */
+    border-radius: 5px;
+}
+
+
+tbody tr:nth-child(odd){
+    background-color: lightgreen;              /* colorindo linha ímpares */
+}
+
+tbody tr:nth-child(even){
+    background-color: lightsalmon;              /* colorindo linha pares */
+}
+
+
