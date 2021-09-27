@@ -99,7 +99,7 @@ function listarArea()
         
         for (i = 0;i < resposta.length; i++)
         {
-            let option = $('<option></option>').val(resposta[i].id).html(resposta[i].nome);
+            let option = $('<option></option>').val(resposta[i].idArea).html(resposta[i].nome);
             $('#id_area').append(option);
         }
     })
@@ -116,14 +116,14 @@ function grid()
         for (i = 0;i < resposta.length; i++)
         {
             let linha = $('<tr></tr>');
-            let celulaId = $('<td></td>').html(resposta[i].id);
+            let celulaId = $('<td></td>').html(resposta[i].idCurso);
             let celulaNome = $('<td></td>').html(resposta[i].nome);
-            let celulaCarga = $('<td class="numero"></td>').html(resposta[i].carga_horaria);
-            let celulaArea = $('<td></td>').html(resposta[i].area.nome);
+            let celulaCarga = $('<td class="numero"></td>').html(resposta[i].carga);
+            let celulaArea = $('<td></td>').html(resposta[i].idAreaNavigation.nome);
             let celulaAcoes = $('<td></td>')
-            let botaoVisualizar = $('<button></button>').attr('type','button').html('Visualizar').attr('onclick','visualizar('+ resposta[i].id +')');
-            let botaoExcluir = $('<button></button>').attr('type','button').html('Excluir').attr('onclick','excluir('+ resposta[i].id +')');
-            let botaoAlterar = $('<button></button>').attr('type', 'button').html('Alterar').attr('onclick', 'consultar(' + resposta[i].id + ')');
+            let botaoVisualizar = $('<button></button>').attr('type','button').html('Visualizar').attr('onclick','visualizar('+ resposta[i].idCurso +')');
+            let botaoExcluir = $('<button></button>').attr('type','button').html('Excluir').attr('onclick','excluir('+ resposta[i].idCurso +')');
+            let botaoAlterar = $('<button></button>').attr('type', 'button').html('Alterar').attr('onclick', 'consultar(' + resposta[i].idCurso + ')');
             linha.append(celulaNome,celulaCarga,celulaArea,celulaAcoes.append(botaoVisualizar),celulaAcoes.append(botaoExcluir),celulaAcoes.append(botaoAlterar));
             $('#grid').append(linha);
            
@@ -155,37 +155,40 @@ function excluir(id)
 
 }
 
-function visualizar(id)
+function visualizar(Id)
 {
-    $.get('https://localhost:5001/api/Curso/Consultar?idCurso=' + id)
+    $.get('https://localhost:5001/api/Curso/Consultar?Id=' + Id)
     .done(function(resposta){
-         
-        let visualizacao = resposta.nome;
-        visualizacao += '\n';
-        visualizacao += resposta.area.nome;
-        visualizacao += '\n';
-        visualizacao += resposta.carga_horaria;
-        visualizacao += '\n';
-        visualizacao += resposta.tipo;
-        alert(visualizacao);
-       
+        for (i = 0;i < resposta.length; i++)
+        { 
+            let visualizacao = resposta[i].nome;
+            visualizacao += '\n';
+            visualizacao += resposta[i].idAreaNavigation.nome;
+            visualizacao += '\n';
+            visualizacao += resposta[i].carga;
+            visualizacao += '\n';
+            visualizacao += resposta[i].tipo;
+            alert(visualizacao);
+        }
     })
     .fail(function(erro, mensagem, excecao){
         alert('Algo está incorreto!');
     });
 }
 
-function consultar(id) {
-    $.get('https://localhost:5001/api/Curso/Consultar?idCurso=' + id)
-        .done(function(resposta) { 
-            formulario.id.value = resposta.Id;
-            formulario.nome.value = resposta.nome;
-            formulario.carga.value = resposta.carga_horaria;
-            formulario.area.value = resposta.area.id;
-            formulario.tipo[resposta.area.id].checked = true;
-            formulario.tipo.value = resposta.Tipo;
-            formulario.botao.innerHTML = 'ALTERAR';
-            formulario.botao.onclick = alterar;
+function consultar(Id) {
+    $.get('https://localhost:5001/api/Curso/Consultar?Id=' + Id)
+        .done(function(resposta) {
+            for (i = 0;i < resposta.length; i++)
+            { 
+                formulario.id.value = resposta[i].idCurso;
+                formulario.nome.value = resposta[i].nome;
+                formulario.carga.value = resposta[i].carga;
+                formulario.area.value = resposta[i].idAreaNavigation.idArea;
+                formulario.tipo[resposta[i].idCurso-1].checked = true;
+                formulario.botao.innerHTML = 'ALTERAR';
+                formulario.botao.onclick = alterar;
+            }
         })
         .fail(function(erro, mensagem, excecao) { 
             alert(mensagem + ': ' + excecao);

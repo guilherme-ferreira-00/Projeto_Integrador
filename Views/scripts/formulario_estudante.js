@@ -68,7 +68,7 @@ function verifica() {
             type: 'POST',
             url: 'https://localhost:5001/api/Estudante/Cadastrar',
             contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(curso),
+            data: JSON.stringify(formulario),
             success: function(resposta){
                 alert(resposta);
             },
@@ -114,7 +114,7 @@ function listarCurso()
         
         for (i = 0;i < resposta.length; i++)
         {
-            let option = $('<option></option>').val(resposta[i].id).html(resposta[i].nome);
+            let option = $('<option></option>').val(resposta[i].idcursoEstudante).html(resposta[i].nome);
             $('#id_curso').append(option);
         }
     })
@@ -130,12 +130,13 @@ function grid()
         
         for (i = 0;i < resposta.length; i++)
         {
+            
             let linha = $('<tr></tr>');
             let celulaId = $('<td></td>').html(resposta[i].id);
             let celulaNome = $('<td></td>').html(resposta[i].nome);
             let celulaIdade = $('<td class="numero" ></td>').html(resposta[i].idade);
             let celulaData = $('<td></td>').html(resposta[i].data);
-            let celulaCurso = $('<td></td>').html(resposta[i].cursoEstudante.nome);
+            let celulaCurso = $('<td></td>').html(resposta[i].idCursoNavigation.nome);
             let celulaGraduado = $('<td></td>').html(resposta[i].graduado);
             let celulaAcoes = $('<td></td>')
             let botaoVisualizar = $('<button></button>').attr('type','button').html('Visualizar').attr('onclick','visualizar('+ resposta[i].id +')');
@@ -172,24 +173,25 @@ function excluir(id)
 
 }
 
-function visualizar(id)
+function visualizar(idCurso)
 {
-    $.get('https://localhost:5001/api/Estudante/Consultar?idEstudante=' + id)
+    $.get('https://localhost:5001/api/Estudante/Consultar?idCurso=' + idCurso)
     .done(function(resposta){
-         
-        let visu = resposta.nome;
-        visu += '\n';
-        let visualizacao = resposta.idade;
-        visualizacao += '\n';
-        visualizacao += resposta.data;
-        visualizacao += '\n';
-        visualizacao += resposta.cursoEstudante.nome;
-        visualizacao += '\n';
-        visualizacao += resposta.cursoDisciplina.nome;
-        visualizacao += '\n';
-        visualizacao += resposta.graduado;
-        alert(visu+visualizacao);
-       
+        for (i = 0;i < resposta.length; i++)
+        {
+            let visu = resposta[i].nome;
+            visu += '\n';
+            let visualizacao = resposta[i].idade;
+            visualizacao += '\n';
+            visualizacao += resposta[i].data;
+            visualizacao += '\n';
+            visualizacao += resposta[i].idcursoEstudanteNavigation.nome;
+            visualizacao += '\n';
+            visualizacao += resposta[i].idcursoDisciplinaNavigation.nome;
+            visualizacao += '\n';
+            visualizacao += resposta[i].graduado;
+            alert(visu+visualizacao);
+        }
     })
     .fail(function(erro, mensagem, excecao){
         alert('Algo está incorreto!');
@@ -230,20 +232,24 @@ function alterar() {
     }
 }
 
-function consultar(id) {
-    $.get('https://localhost:5001/api/Estudante/Consultar?idCurso=' + id)
+function consultar(idCurso) {
+    $.get('https://localhost:5001/api/Estudante/Consultar?idCurso='+idCurso)
         .done(function(resposta) { 
-            formulario.id.value = resposta.Id;
-            formulario.nome.value = resposta.nome;
-            formulario.data.value = resposta.data;
-            formulario.idade.value = resposta.idade;
-            formulario.curso.value = resposta.cursoEstudante.id;
-            formulario.disciplina.value = resposta.cursoDisciplina.id;
-            formulario.disciplina[resposta.cursoDisciplina.id].checked = true;
-            formulario.graduado[resposta.cursoEstudante.id].checked = true;
-            formulario.graduado.value = resposta.Graduado;
-            formulario.botao.innerHTML = 'ALTERAR';
-            formulario.botao.onclick = alterar;
+            for (i = 0;i < resposta.length; i++)
+            {
+                
+                formulario.id.value = resposta[i].id;
+                formulario.nome.value = resposta[i].nome;
+                formulario.data.value = resposta[i].data;
+                formulario.idade.value = resposta[i].idade;
+                formulario.curso.value = resposta[i].idcursoEstudanteNavigation.idcursoEstudante;
+                formulario.disciplina.value = resposta[i].idcursoDisciplinaNavigation.idcursoDisciplina;
+                formulario.disciplina[resposta[i].idcursoDisciplinaNavigation.idcursoDisciplina].checked = true;
+                formulario.graduado[resposta[i].idcursoEstudanteNavigation.idcursoEstudante].checked = true;
+                formulario.graduado.value = resposta[i].graduado;
+                formulario.botao.innerHTML = 'ALTERAR';
+                formulario.botao.onclick = alterar;
+            }
         })
         .fail(function(erro, mensagem, excecao) { 
             alert(mensagem + ': ' + excecao);
@@ -266,7 +272,7 @@ function limpar() {
 
 
 function listaridDisciplina() {
-    $.get('https://localhost:5001/api/Estudante/Listardisciplina')
+    $.get('https://localhost:5001/api/Estudante/Listardis')
         .done(function(resposta) { 
             for(i = 0; i < resposta.length; i++) {
                 if (i > 0)
