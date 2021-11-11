@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "hvvp0Sjt0JzIOWVlrQWQJx1/Wc5QJ3nfah2m35awJ0zUa2gn7Noa6Jz/Rwlc6V/X8MNrqtgHdt69tr0XwY9ChA==",
+  "dgSpecHash": "7po17zRhnOhZ1iPGdPuadSAjq9bdhMnLejEFhjaX64NzR5g10JXgcAWRHdzEN+a2s7k5No53GSrHo/WDBXy1NA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\guilherme.ferreira\\Documents\\Unilavras\\Projeto Integrador 3\\cadastro-estudante\\cadastro-estudante.csproj",
+  "projectFilePath": "C:\\Users\\guilherme.ferreira\\Documents\\Unilavras\\Análise e Projeto de Software II\\Semana 3\\Guilherme_Montijo_Semana_3\\cadastro-estudante.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\guilherme.ferreira\\.nuget\\packages\\bouncycastle.netcore\\1.8.3\\bouncycastle.netcore.1.8.3.nupkg.sha512",
     "C:\\Users\\guilherme.ferreira\\.nuget\\packages\\google.protobuf\\3.11.4\\google.protobuf.3.11.4.nupkg.sha512",

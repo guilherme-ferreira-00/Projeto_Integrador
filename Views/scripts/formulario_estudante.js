@@ -48,33 +48,53 @@ function validar() {
 function verifica() {
    
     let erro = validar();
-    let curso = {
-        nome: formulario.nome.value,
-        idade: parseFloat(formulario.idade.value),
-        data: parseInt(formulario.value),
-        Disciplina: {
-            id: parseInt(formulario.disciplina.value)
-        },
-        curso: {
-            id: parseInt(formulario.curso.value)
-        },
-        graduado: formulario.graduado.value
-
-    };
     
-    if (!erro) {
+    
+    var dis = getValues();
+    
+    
+    if (!erro) {  
+        
+        var id;
+        var url;
+        var metodo;
+        if (formulario.botao.innerHTML == 'ALTERAR'){
+            id = formulario.id.value;
+            metodo = 'PUT';
+            url = 'https://localhost:5001/api/Estudante/Alterar';
+        }
+        else{
+            id = 0;
+            metodo = 'POST';
+            url = 'https://localhost:5001/api/Estudante/Cadastrar';
+        }
+
+        var novoEstudante = {
+            id: parseFloat(id),
+            nome: formulario.nome.value,
+            idade: parseFloat(formulario.idade.value),
+            data: formulario.data.value,
+            IdcursoDisciplina: parseInt(dis),
+            IdcursoEstudante: parseInt(formulario.curso.value),
+            graduado: parseInt(formulario.graduado.value),
+            IdCurso: parseInt(formulario.curso.value)
+    
+        };
+               
         $.ajax({
 
-            type: 'POST',
-            url: 'https://localhost:5001/api/Estudante/Cadastrar',
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(formulario),
-            success: function(resposta){
-                alert(resposta);
-            },
-            error: function(erro, mensagem, excecao){
-                alert('Algo está incorreto!');
-    }
+        type: metodo,
+        url: url,
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(novoEstudante),
+        success: function(resposta){
+            alert(resposta);
+            grid();
+            limpar();
+        },
+        error: function(erro, mensagem, excecao){
+            alert('Algo está incorreto!');
+        }
 
         }
         );
@@ -103,6 +123,16 @@ function verificarCheck(checkboxes, nomeCampo)
        return false;
 }
 
+
+function getValues() {
+    var pacote = document.querySelectorAll('[name=disciplina]:checked');
+    var values = [];
+    for (var i = 0; i < pacote.length; i++) {
+      values.push(pacote[i].value);
+    }
+    return values
+  }
+
 function remover(campo) {
     $('#'+campo).attr('class','verde');
 }
@@ -127,7 +157,7 @@ function grid()
 {
     $.get('https://localhost:5001/api/Estudante/EstudanteCadastrado')
     .done(function(resposta){
-        
+        $('#grid tr').remove();
         for (i = 0;i < resposta.length; i++)
         {
             
@@ -163,6 +193,7 @@ function excluir(id)
         data: JSON.stringify(id),
         success: function(resposta){
             alert(resposta);
+            grid();
         },
         error: function(erro, mensagem, excecao){
             alert('Algo está incorreto!!');
@@ -198,43 +229,11 @@ function visualizar(idCurso)
     });
 }
 
-function alterar() {
-    let erro = validar();
-    
-    if (!erro) {
-        let estudante = {
-            nome: formulario.nome.value,
-            idade: parseFloat(formulario.idade.value),
-            idade: parseFloat(formulario.data.value),
-            Disciplina: {
-                id: parseInt(formulario.disciplina.value)
-            },
-            curso: {
-                id: parseInt(formulario.curso.value)
-            },
-            tipo: formulario.graduado.value
-    
-        };
-
-        $.ajax({
-            type: 'PUT',
-            url: 'https://localhost:5001/api/Estudante/Alterar',
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(estudante),
-            success: function(resposta) { 
-                alert(resposta);
-                limpar();
-            },
-            error: function(erro, mensagem, excecao) { 
-                alert(mensagem + ': ' + excecao);
-            }
-        });
-    }
-}
 
 function consultar(idCurso) {
     $.get('https://localhost:5001/api/Estudante/Consultar?idCurso='+idCurso)
         .done(function(resposta) { 
+            limpar();
             for (i = 0;i < resposta.length; i++)
             {
                 
@@ -244,11 +243,9 @@ function consultar(idCurso) {
                 formulario.idade.value = resposta[i].idade;
                 formulario.curso.value = resposta[i].idcursoEstudanteNavigation.idcursoEstudante;
                 formulario.disciplina.value = resposta[i].idcursoDisciplinaNavigation.idcursoDisciplina;
-                formulario.disciplina[resposta[i].idcursoDisciplinaNavigation.idcursoDisciplina].checked = true;
-                formulario.graduado[resposta[i].idcursoEstudanteNavigation.idcursoEstudante].checked = true;
-                formulario.graduado.value = resposta[i].graduado;
+                formulario.disciplina[resposta[i].idcursoDisciplinaNavigation.idcursoDisciplina-1].checked = true;
+                formulario.graduado[resposta[i].graduado-1].checked = true;
                 formulario.botao.innerHTML = 'ALTERAR';
-                formulario.botao.onclick = alterar;
             }
         })
         .fail(function(erro, mensagem, excecao) { 
@@ -280,7 +277,7 @@ function listaridDisciplina() {
                     $('#iddisciplina').append($('<br>'));
                 }
 
-                $('#iddisciplina').append($('<input>').attr('type', 'checkbox').attr('name', 'disciplina').val(resposta[i].id));
+                $('#iddisciplina').append($('<input>').attr('type', 'checkbox').attr('name', 'disciplina').val(resposta[i].idcursoDisciplina));
                 $('#iddisciplina').append(resposta[i].nome);
             }
         })

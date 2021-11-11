@@ -14,7 +14,8 @@ namespace cadastro_estudante.Models
         public string Nome { get; set; }
         public double? Carga { get; set; }
         public string Tipo { get; set; }
-        public int? IdArea { get; set; }
+        public int IdArea { get; set; }
+        public bool Excluido { get; set; }
 
         public virtual Area IdAreaNavigation { get; set; }
         public virtual ICollection<Estudante> Estudante { get; set; }

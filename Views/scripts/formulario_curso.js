@@ -33,12 +33,29 @@ function validar(){
 function verifica() {
    
     let erro = validar();
+
+
+
+        var id;
+        var url;
+        var metodo;
+        if (formulario.botao.innerHTML == 'ALTERAR'){
+            id = formulario.id.value;
+            metodo = 'PUT';
+            url = 'https://localhost:5001/api/Curso/Alterar';
+        }
+        else{
+            id = 0;
+            metodo = 'POST';
+            url = 'https://localhost:5001/api/Curso/Cadastrar';
+        }
+
+
     let curso = {
+        idCurso: parseFloat(id),
         nome: formulario.nome.value,
         carga: parseFloat(formulario.carga.value),
-        area: {
-            id: parseInt(formulario.area.value)
-        },
+        IdArea: parseInt(formulario.area.value),
         tipo: formulario.tipo.value
 
     };
@@ -46,12 +63,14 @@ function verifica() {
     if (!erro) {
         $.ajax({
 
-            type: 'POST',
-            url: 'https://localhost:5001/api/Curso/Cadastrar',
+            type: metodo,
+            url: url,
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(curso),
             success: function(resposta){
                 alert(resposta);
+                grid();
+                limpar();
             },
             error: function(erro, mensagem, excecao){
                 alert('Algo está incorreto!');
@@ -112,7 +131,7 @@ function grid()
 {
     $.get('https://localhost:5001/api/Curso/CusoCadastrado')
     .done(function(resposta){
-        
+        $('#grid tr').remove();
         for (i = 0;i < resposta.length; i++)
         {
             let linha = $('<tr></tr>');
@@ -145,9 +164,10 @@ function excluir(id)
         data: JSON.stringify(id),
         success: function(resposta){
             alert(resposta);
+            grid();
         },
         error: function(erro, mensagem, excecao){
-            alert('Algo está incorreto!!');
+            alert('Esse curso está sendo usado por algum Estudante!!');
 }
 
     }
@@ -179,15 +199,15 @@ function visualizar(Id)
 function consultar(Id) {
     $.get('https://localhost:5001/api/Curso/Consultar?Id=' + Id)
         .done(function(resposta) {
+            limpar();
             for (i = 0;i < resposta.length; i++)
             { 
                 formulario.id.value = resposta[i].idCurso;
                 formulario.nome.value = resposta[i].nome;
                 formulario.carga.value = resposta[i].carga;
                 formulario.area.value = resposta[i].idAreaNavigation.idArea;
-                formulario.tipo[resposta[i].idCurso-1].checked = true;
+                formulario.tipo[resposta[i].tipo-1].checked = true;
                 formulario.botao.innerHTML = 'ALTERAR';
-                formulario.botao.onclick = alterar;
             }
         })
         .fail(function(erro, mensagem, excecao) { 
@@ -195,35 +215,6 @@ function consultar(Id) {
         });
 }
 
-function alterar() {
-    let erro = validar();
-    
-    if (!erro) {
-        let curso = {
-            nome: formulario.nome.value,
-            carga: parseFloat(formulario.carga.value),
-            area: {
-                id: parseInt(formulario.area.value)
-            },
-            tipo: formulario.tipo.value
-    
-        };
-
-        $.ajax({
-            type: 'PUT',
-            url: 'https://localhost:5001/api/Curso/Alterar',
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(curso),
-            success: function(resposta) { 
-                alert(resposta);
-                limpar();
-            },
-            error: function(erro, mensagem, excecao) { 
-                alert(mensagem + ': ' + excecao);
-            }
-        });
-    }
-}
 
 function limpar() {
     formulario.nome.value = '';

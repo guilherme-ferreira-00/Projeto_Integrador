@@ -7918,11 +7918,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\guilherme.ferreira\\Documents\\Unilavras\\Projeto Integrador 3\\cadastro-estudante\\cadastro-estudante.csproj",
+      "projectUniqueName": "C:\\Users\\guilherme.ferreira\\Documents\\Unilavras\\Análise e Projeto de Software II\\Semana 3\\Guilherme_Montijo_Semana_3\\cadastro-estudante.csproj",
       "projectName": "cadastro-estudante",
-      "projectPath": "C:\\Users\\guilherme.ferreira\\Documents\\Unilavras\\Projeto Integrador 3\\cadastro-estudante\\cadastro-estudante.csproj",
+      "projectPath": "C:\\Users\\guilherme.ferreira\\Documents\\Unilavras\\Análise e Projeto de Software II\\Semana 3\\Guilherme_Montijo_Semana_3\\cadastro-estudante.csproj",
       "packagesPath": "C:\\Users\\guilherme.ferreira\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\guilherme.ferreira\\Documents\\Unilavras\\Projeto Integrador 3\\cadastro-estudante\\obj\\",
+      "outputPath": "C:\\Users\\guilherme.ferreira\\Documents\\Unilavras\\Análise e Projeto de Software II\\Semana 3\\Guilherme_Montijo_Semana_3\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\guilherme.ferreira\\AppData\\Roaming\\NuGet\\NuGet.Config"

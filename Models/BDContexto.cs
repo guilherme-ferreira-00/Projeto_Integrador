@@ -54,6 +54,8 @@ namespace cadastro_estudante.Models
                 entity.HasIndex(e => e.IdArea)
                     .HasName("IdArea");
 
+                entity.Property(e => e.Excluido).HasColumnName("excluido");
+
                 entity.Property(e => e.Nome)
                     .IsRequired()
                     .HasMaxLength(80);
@@ -65,6 +67,7 @@ namespace cadastro_estudante.Models
                 entity.HasOne(d => d.IdAreaNavigation)
                     .WithMany(p => p.Curso)
                     .HasForeignKey(d => d.IdArea)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("curso_ibfk_1");
             });
 
@@ -109,6 +112,8 @@ namespace cadastro_estudante.Models
                     .IsRequired()
                     .HasMaxLength(11);
 
+                entity.Property(e => e.Excluido).HasColumnName("excluido");
+
                 entity.Property(e => e.Nome)
                     .IsRequired()
                     .HasMaxLength(30);
@@ -116,16 +121,19 @@ namespace cadastro_estudante.Models
                 entity.HasOne(d => d.IdCursoNavigation)
                     .WithMany(p => p.Estudante)
                     .HasForeignKey(d => d.IdCurso)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("estudante_ibfk_1");
 
                 entity.HasOne(d => d.IdcursoDisciplinaNavigation)
                     .WithMany(p => p.Estudante)
                     .HasForeignKey(d => d.IdcursoDisciplina)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("estudante_ibfk_2");
 
                 entity.HasOne(d => d.IdcursoEstudanteNavigation)
                     .WithMany(p => p.Estudante)
                     .HasForeignKey(d => d.IdcursoEstudante)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("estudante_ibfk_3");
             });
 

@@ -47,7 +47,7 @@ namespace cadastro_estudante.Controllers
        [HttpGet]
         public List<Curso> Consultar(int Id)
         {
-             return contexto.Curso.Where(c => c.IdAreaNavigation.IdArea == Id).Select
+             return contexto.Curso.Where(c => c.IdCurso == Id).Select
             (
                 c => new Curso 
                 {  
@@ -67,19 +67,56 @@ namespace cadastro_estudante.Controllers
         [HttpPost]
         public string Cadastrar([FromBody]Curso novoCurso)
         {
+            contexto.Add(novoCurso);
+            contexto.SaveChanges();
             return "Curso cadastrado com sucesso!";
+            
         }
 
         [HttpDelete]
         public string Excluir([FromBody]int nomeCurso)
         {
-            return "Curso excluído com sucesso!";
+             Curso dados = contexto.Curso.FirstOrDefault(p => p.IdCurso == nomeCurso);
+
+            if (dados == null)
+            {
+                return "Não foi encontrado Curso para o ID informado!";
+            }
+            else
+            {
+                contexto.Remove(dados);
+                contexto.SaveChanges();
+            
+                return "Curso excluído com sucesso!";
+            }
+            
         }
 
         [HttpPut]
         public string Alterar([FromBody]Curso novoCurso)
         {
+            contexto.Update(novoCurso);
+            contexto.SaveChanges();
             return "Curso Alterado com sucesso!";
+        }
+
+        [HttpDelete]
+        public string ExcluirLogico([FromBody]int id)
+        {
+            try
+            {
+                Curso dados = contexto.Curso.FirstOrDefault(p => p.IdCurso == id);
+
+                dados.Excluido = true;
+                contexto.Update(dados);
+                contexto.SaveChanges();
+        
+                return "Curso excluído com sucesso!";
+            }
+            catch (System.Exception ex)
+            {
+                return ex.Message;
+            }
         }
 
     }

@@ -88,13 +88,28 @@ namespace cadastro_estudante.Controllers
     [HttpPost]
         public string Cadastrar([FromBody]Estudante novoEstudante)
         {
+            contexto.Add(novoEstudante);
+            contexto.SaveChanges();
             return "Estudante cadastrado com sucesso!";
         }
 
     [HttpDelete]
         public string Excluir([FromBody]int nomeEstudante)
         {
-            return "Estudante excluído com sucesso!";
+            Estudante dados = contexto.Estudante.FirstOrDefault(p => p.Id == nomeEstudante);
+
+            if (dados == null)
+            {
+                return "Não foi encontrado Estudante para o ID informado!";
+            }
+            else
+            {
+                contexto.Remove(dados);
+                contexto.SaveChanges();
+            
+                return "Estudante excluído com sucesso!";
+            }
+            
         }
     
    
@@ -102,6 +117,10 @@ namespace cadastro_estudante.Controllers
         [HttpPut]
         public string Alterar([FromBody]Estudante novoCurso)
         {
+            contexto.Update(novoCurso);
+            contexto.SaveChanges();
+            
+            
             return "Estudante Alterado com sucesso!";
         }
 
@@ -109,6 +128,25 @@ namespace cadastro_estudante.Controllers
         public List<Cursodisciplina> Listardis()
         {
             return contexto.Cursodisciplina.ToList();
+        }
+        
+        [HttpDelete]
+        public string ExcluirLogico([FromBody]int id)
+        {
+            try
+            {
+                Estudante dados = contexto.Estudante.FirstOrDefault(p => p.Id == id);
+
+                dados.Excluido = true;
+                contexto.Update(dados);
+                contexto.SaveChanges();
+        
+                return "Estudante excluído com sucesso!";
+            }
+            catch (System.Exception ex)
+            {
+                return ex.Message;
+            }
         }
 
     }
